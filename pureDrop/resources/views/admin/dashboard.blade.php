@@ -112,7 +112,6 @@
             <th>Liter</th>
             <th>Harga</th>
             <th>Payment</th>
-            <th>Type</th>
             <th>Waktu</th>
           </tr>
         </thead>
@@ -133,7 +132,6 @@
                   <span class="badge bg-danger">Failed</span>
                 @endif
               </td>
-              <td>{{ $tx->payment_type ?? '-' }}</td>
               <td>{{ $tx->created_at ? $tx->created_at->format('Y-m-d H:i') : '-' }}</td>
             </tr>
           @empty

@@ -2,17 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AirController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+Route::get('/air/{order_id}', [AirController::class, 'show']);
+Route::get('/air/latest', [AirController::class, 'latest']);
+
+// optional (see note): mark as consumed — use with caution.
+Route::post('/air/consume/{order_id}', [AirController::class, 'consume']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

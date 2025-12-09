@@ -14,14 +14,11 @@ class AdminDashboardController extends Controller
     {
         $setting = Setting::orderByDesc('id')->first();
 
-        // filter
         $from = $request->query('from');
         $to   = $request->query('to');
         $status = $request->query('status');
-
         $transactionsQuery = Transaction::query();
 
-        // filter tanggal (created_at)
         if ($from) {
             $transactionsQuery->whereDate('created_at', '>=', $from);
         }
@@ -34,13 +31,12 @@ class AdminDashboardController extends Controller
             $transactionsQuery->where('payment_status', $status);
         }
 
-        // order terbaru dulu
         $transactionsQuery->orderByDesc('created_at');
 
-        // pagination (10 per halaman)
+        // pagination 
         $transactions = $transactionsQuery->paginate(10)->withQueryString();
 
-        // statistik hari ini (menggunakan created_at)
+        // statistik hari ini 
         $todaySalesCount = Transaction::whereDate('created_at', now()->toDateString())->count();
         $todayLiters = Transaction::whereDate('created_at', now()->toDateString())->sum('liter'); // total liter hari ini
         $totalTodayRevenue = Transaction::whereDate('created_at', now()->toDateString())->sum('price');

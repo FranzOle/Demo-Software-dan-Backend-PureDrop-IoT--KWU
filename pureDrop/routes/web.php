@@ -11,6 +11,10 @@ Route::get('/payment/{order_id}', [TransactionController::class, 'payment'])->na
 Route::post('/payment/confirm/{order_id}', [TransactionController::class, 'confirm'])->name('order.confirm');
 Route::get('/success', [TransactionController::class, 'success'])->name('order.success');
 Route::post('/payment/callback', [TransactionController::class, 'callback'])->name('order.callback');
+// cek status order (dipanggil oleh JS polling)
+Route::get('/payment/status/{order_id}',[TransactionController::class, 'status'])
+    ->name('order.status');
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.attempt');
