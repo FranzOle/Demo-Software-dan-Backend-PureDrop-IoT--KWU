@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('liter', 5, 2);
             $table->integer('price');
             $table->string('order_id', 100)->unique();
-            $table->enum('payment_status', ['pending', 'completed', 'failed'])->default('pending');
+            $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
             $table->string('payment_type', 50)->nullable();
             $table->timestamp('transaction_time')->nullable()->comment('Waktu transaksi');
             $table->timestamps();

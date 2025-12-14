@@ -67,4 +67,25 @@ class AirController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Marked consumed']);
     }
+
+    public function espLatest()
+    {
+        $tx = Transaction::where('payment_status', 'success')
+            ->orderByDesc('updated_at')
+            ->first();
+
+        if (! $tx) {
+            return response()->json([
+                'paid' => false,
+                'volume' => 0
+            ]);
+        }
+
+        return response()->json([
+            'paid'   => true,
+            'volume' => (float) $tx->liter,
+            'order_id' => $tx->order_id
+        ]);
+    }
+
 }
