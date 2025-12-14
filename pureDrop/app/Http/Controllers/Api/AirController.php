@@ -54,19 +54,36 @@ class AirController extends Controller
         ]);
     }
 
-    public function consume($order_id)
-    {
-        $tx = Transaction::where('order_id', $order_id)->first();
+public function consume($order_id)
+{
+    $tx = Transaction::where('order_id', $order_id)->first();
 
-        if (! $tx) {
-            return response()->json(['success' => false, 'message' => 'Transaction not found'], 404);
-        }
-
-        $tx->payment_status = 'consumed';
-        $tx->save();
-
-        return response()->json(['success' => true, 'message' => 'Marked consumed']);
+    if (! $tx) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Transaction not found'
+        ], 404);
     }
+
+    // hanya boleh dipakai kalau SUDAH BAYAR
+    if ($tx->payment_status !== 'success') {
+        return response()->json([
+            'success' => false,
+            'message' => 'Order not payable or already invalid'
+        ], 400);
+    }
+
+    // ⚠️ JANGAN ubah payment_status
+    // cukup tandai waktu pemakaian (logis & aman)
+    $tx->transaction_time = now();
+    $tx->save();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Order consumed by machine'
+    ]);
+}
+
 
     public function espLatest()
     {

@@ -11,6 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+                DB::statement("
+            ALTER TABLE transactions 
+            MODIFY payment_status 
+            ENUM('pending','success','consumed','failed') 
+            NOT NULL DEFAULT 'pending'
+        ");
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('customer_name', 100);
