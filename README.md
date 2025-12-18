@@ -1,4 +1,4 @@
-# PureDrop Demo (Laravel 10 + Tailwind + Midtrans)
+# PureDrop Demo (Laravel 10 + Midtrans)
 
 Demo untuk PKM 2025.  
 Menampilkan:
@@ -13,3 +13,5 @@ Menampilkan:
 3. Duplikasi `.env.example` → ubah jadi `.env`
 4. Jalankan `php artisan key:generate`
 5. Jalankan `php artisan serve` dan `npm run dev`
+
+Sekarang sudah bisa diakses di puredrop.cloud !!
